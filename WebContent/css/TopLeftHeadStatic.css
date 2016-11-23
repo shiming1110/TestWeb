@@ -1,0 +1,20 @@
+.FixedTitleRow
+{
+    position: relative;
+    top: expression(this.offsetParent.scrollTop);
+    z-index: 10;
+    background-color: #E6ECF0;
+}
+
+.FixedTitleColumn
+{
+    position: relative;
+    left: expression(this.parentElement.offsetParent.scrollLeft);
+}
+
+.FixedDataColumn
+{
+    position: relative;
+    left: expression(this.parentElement.offsetParent.parentElement.scrollLeft);
+    background-color: #E6ECF0;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+<meta http-equiv="description" content="this is my page">
+<link rel="stylesheet" href="css/tcdPageCode.css">
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="js/search.js"></script>
+<script type="text/javascript" src="js/jquery.page.js"></script>
+<style>
+</style>
+<title>记录查询</title>
+</head>
+<body onLoad='init()'>
+	<div style='float: left;'>
+		<div style="position: relative; top: 20px;">
+			<font color="blue" size="2">员工ID：&nbsp;</font> <input type="text"
+				id="userId" size="30" value="214778" /> <font color="blue" size="2">每页显示条数：</font>
+			<input type="text" id="pageSize" size="10" value="20" /> <input
+				type="submit" name="检索" value="检索" onclick="search()" /> <br />
+			<hr />
+		</div>
+		<div id='resultCountDiv' style="position: relative; top: 20px;">
+			<p>
+				<u><strong>结果列表</strong></u>
+			</p>
+			<font color="red" size="3"><span id="resultcount"></span></font>
+		</div>
+		<br />
+		<div id='resultTableDiv'>
+			<table border=2 align=left id="resultTable">
+				<caption align=left></caption>
+				<thead>
+					<tr bgcolor="#cccccc">
+						<th>员工ID</th>
+						<th>姓名</th>
+						<th>邮件地址</th>
+						<th>NotesID</th>
+						<th>部门</th>
+						<th>Band</th>
+						<th>职责</th>
+						<th>内线</th>
+						<th>手机</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		<hr />
+		<br />
+		<div style="position: relative; top: 40px;">
+			<div class="tcdPageCode"></div>
+		</div>
+	</div>
+</body>
+</html>

@@ -29,17 +29,11 @@ function search(){
 	$("#resultcount").html("");
 	$(".tcdPageCode").html("");
 	var userId=encodeURI(encodeURI($("#userId").val()));
-	var query=encodeURI(encodeURI($("#query").val()));
-	var answer=encodeURI(encodeURI($("#answer").val()));
-	var pageSize=encodeURI(encodeURI($("#pageSize").val()));
-	var timeFrom=encodeURI(encodeURI($("#timeFrom").val()));
-	var timeTo=encodeURI(encodeURI($("#timeTo").val()));
-	var mode=encodeURI(encodeURI($("#mode").val()));
 	
 	var limit = '0';
 	isPaging = false;
 	
-	getPageData(userId,query,answer,timeFrom,timeTo,mode,limit,pageSize);
+	getPageData(userId);
 }
 
 function getPageData(userId){

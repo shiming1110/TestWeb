@@ -33,6 +33,13 @@ public class TestJaxRsService {
 	public Response query() {
 		return Response.ok(DBAccess.dbAccess(null)).build();
 	}
+	
+	@GET
+	@Path("/staff")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getStaff(){
+		return getStaff(null);
+	}
 
 	@GET
 	@Path("/staff/{id}")
@@ -65,16 +72,13 @@ public class TestJaxRsService {
 			e.printStackTrace();
 		}
 
-//		for (Object o : rl) {
-//			System.out.println(o.toString());
-//		}
-
         JSONObject jo = new JSONObject();
         
         jo.element("dataCount", ((Map)rc.get(0)).values().toArray()[0]);
         jo.element("data", JsonUtil.mapList2JSON(rl));
         
 		return Response.ok(jo.toString()).build();
+		
 	}
 
 }

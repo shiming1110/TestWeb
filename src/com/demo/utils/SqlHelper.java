@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -135,15 +136,18 @@ public class SqlHelper{
 		}
 	}
 	
-	public static int executeUpdate(String sql) {
+	public static int executeUpdate(String sqlString,String[] arrs) {
 		Connection con = null;
-		Statement stmt = null;
+		PreparedStatement perstmt = null;
 		int rc = -1;
-		System.out.println("SQL="+sql);
+		System.out.println("SQL="+sqlString);
 		try {
 			con = SqlHelper.getConnection();
-			stmt = con.createStatement();
-			rc = stmt.executeUpdate(sql);
+	        perstmt =  con.prepareStatement(sqlString);
+	        for (int i=1; i < (arrs.length + 1) ; i++){
+	        	perstmt.setString(i,arrs[i-1]);
+	        }
+			rc = perstmt.executeUpdate();
 			return rc;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -151,8 +155,8 @@ public class SqlHelper{
 			return -1;
 		} finally {
 			try {
-				if (stmt != null)
-					stmt.close();
+				if (perstmt != null)
+					perstmt.close();
 
 				if (con != null)
 					con.close();
@@ -195,8 +199,6 @@ public class SqlHelper{
 		
 		con = SqlHelper.getConnection();
 		System.out.println("SQL="+sqlString);
-		
-        Statement st = con.createStatement();
 
         PreparedStatement perstmt =  con.prepareStatement(sqlString);
     	

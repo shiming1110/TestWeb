@@ -1,5 +1,7 @@
 package com.demo.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,16 +67,18 @@ public class JsonUtil {
 		return jsonArray;
 	}
 	
-	
-//	public static map2JSON(){
-//		
-//		Map<String, Object> map = new HashMap<String, Object>();
-//
-//		JSONObject jsonObject = JSONObject.fromObject(map);
-//
-//		System.out.println(jsonObject);
-//	}
-	
+	 
+    public static String decode(String s) {
+    	String ds = null;
+        try {
+        	ds = URLDecoder.decode(URLDecoder.decode(s,"UTF-8"),"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return ds;
+    }
+
 
 	
 	
@@ -157,7 +161,7 @@ public class JsonUtil {
         return flag;
     }
  
-    public boolean isJsonArray(String s) {
+    public static boolean isJsonArray(String s) {
         boolean flag = true;
         try {
             JSONArray.fromObject(s);
@@ -170,7 +174,6 @@ public class JsonUtil {
     public boolean isString(String s) {
         return !this.isJson(s) && !this.isJsonArray(s);
     }
- 
 
  
 }

@@ -1,4 +1,4 @@
-package com.demo.jaxrs;
+package com.demo.controller;
 
 import java.util.Map;
 
@@ -12,9 +12,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.demo.model.DeptInfo;
-import com.demo.model.Staff;
-import com.demo.model.core.DBAccess;
+import com.demo.model.dao.DBAccess;
+import com.demo.model.service.DeptInfo;
+import com.demo.model.vo.Staff;
 
 @Path("/")
 public class TestJaxRsService {

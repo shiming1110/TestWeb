@@ -25,13 +25,16 @@ function search(){
 }
 
 function getPageData(userId,limit,pageSize){
-	$("#resultTable tbody").html("");
-	$("#resultTableDiv").hide();
+//	$("#resultTable tbody").html("");
+//	$("#resultTableDiv").hide();
 	
     var url = "rest/staff/"+ userId + "/" + limit + "/" + pageSize;
 	
     $.getJSON(url,function(data){ 
+    	$("#resultTableDiv").show();
+    	$("#resultTable tbody").html("");
         $.each(data.data, function(k , v){ 
+        	
         	var tdid = "ID_"+ v.id;
         	var trid = "TR_"+ v.id;
         	var delbtid = "BT_"+ v.id;
@@ -59,7 +62,6 @@ function getPageData(userId,limit,pageSize){
             	$("#"+ trid).remove();
             });
 
-        	$("#resultTableDiv").show();
 
         });
         dataCount = data.dataCount;

@@ -1,4 +1,4 @@
-package com.demo.model;
+package com.demo.model.service;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -8,7 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.demo.utils.SqlHelper;
+import com.demo.model.dao.SqlHelper;
+import com.demo.model.vo.Staff;
 
 public class DeptInfo {
 	

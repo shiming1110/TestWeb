@@ -1,4 +1,4 @@
-package com.demo.jaxrs;
+package com.demo.controller;
 
 import java.util.HashSet;
 import java.util.Set;

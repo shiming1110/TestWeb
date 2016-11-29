@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="css/tcdPageCode.css">
 <link rel="stylesheet" href="css/demo.css">
 <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
-<script type="text/javascript" src="js/search.js"></script>
+<script type="text/javascript" src="js/deptInfo.js"></script>
 <script type="text/javascript" src="js/jquery.page.js"></script>
 <script>
 $(document).ready(function(){
@@ -28,13 +28,15 @@ $(document).ready(function(){
 </head>
 <body onLoad='init()'>
 	<div class='div1'>
-		<u><strong>员工信息</strong></u>
-			<br />
+		<fieldset>
+			<legend><strong>员工信息</strong></legend>
+		<br />
+		<span id="editMsg">&nbsp;</span>
 		<div>
 			<div><span class="span1">员工ID：</span><input type="text" id="Id" value="" required size="30" maxlength="40" />
 			<input type="button" name="检索" value="检索" onclick="searchById()" />
 			<input type="button" name="保存" value="保存" onclick="update()" />
-			<span id="editMsg"></span></div>
+			</div>
 			<div><span class="span1">姓名：</span><input type="text" id="Name" value="" required size="30" maxlength="40" /></div>
 			<div><span class="span1">邮件地址：</span><input type="text" id="Email" value="" required size="30" maxlength="40" /></div>
 			<div><span class="span1">NotesID：</span><input type="text" id="NotesId" value="" required size="30" maxlength="40" /></div>
@@ -45,6 +47,8 @@ $(document).ready(function(){
 			<div><span class="span1">手机：</span><input type="text" id="MobileTel" value="" required size="30" maxlength="40" /></div>
 			<br />
 		</div>
+		
+		</fieldset>
 	</div>
 </body>
 </html>

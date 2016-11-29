@@ -33,8 +33,10 @@ function getPageData(userId,limit,pageSize){
     $.getJSON(url,function(data){ 
         $.each(data.data, function(k , v){ 
         	var tdid = "ID_"+ v.id;
+        	var trid = "TR_"+ v.id;
+        	var delbtid = "BT_"+ v.id;
             $("#resultTable tbody").append(
-            		 "<tr >"+
+            		 "<tr id='" + trid + "'>"+
             		  "<td id='"+ tdid +"'>" + "<font size='3' color='blue'>" +v.id +"</font>"+ "</td>"+
             		  "<td>" + v.name + "</td>"+
             		  "<td>" + v.email + "</td>"+
@@ -44,11 +46,17 @@ function getPageData(userId,limit,pageSize){
             		  "<td>" + v.jobrole + "</td>"+
             		  "<td>" + v.externaltel + "</td>"+
             		  "<td>" + v.mobiletel + "</td>"+
+            		  "<td><input type='button' id='" + delbtid +"' value='删除' style='width:40px;'  /></td>"+
             		  "</tr>");
             
-            var url = "edit.html?id="+v.id;
+            var editUrl = "edit.html?id="+v.id;
             $("#"+ tdid).css("cursor","pointer").click(function(){
-                window.open(url)
+                window.open(editUrl);
+            });
+            
+            $("#"+ delbtid).click(function(){
+            	deleteById(v.id);
+            	$("#"+ trid).remove();
             });
 
         	$("#resultTableDiv").show();
@@ -74,6 +82,26 @@ function getPageData(userId,limit,pageSize){
     });
 }
 
+function deleteById(staffId){
+	var url = "rest/staff/" + staffId;
+	$.ajax({  
+		  type:'DELETE',      
+		  url:url,
+		  contentType : 'application/json',
+		  cache:false,  
+		  dataType:'json',  
+		  success:function(data){
+			  var msg;
+			  if (parseInt(data.code) > 0){
+				  msg = "<font color='blue' size='2'>"+data.msg+"</font>";
+			  }else{
+				  msg = "<font color='red' size='2'>"+data.msg+"</font>";
+			  }
+			  $("#editMsg").append(msg);
+		  }  
+		});
+}
+
 function searchById() {
 
 	var userId = encodeURI(encodeURI($("#Id").val()));
@@ -82,7 +110,7 @@ function searchById() {
 	
 	var url = "rest/staff/" + userId;
 
-	$("#editMsg").html("");
+	$("#editMsg").html("&nbsp;");
 
 	$.getJSON(url, function(data) {
 		dataCount = data.dataCount;
@@ -119,7 +147,7 @@ function update(){
 	staff.externalTel = $("#ExternalTel").val();
 	staff.mobileTel = $("#MobileTel").val();
 
-	$("#editMsg").html("");
+	$("#editMsg").html("&nbsp;");
 	
 	$.ajax({  
 		  type:'PUT',      

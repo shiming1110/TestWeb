@@ -4,17 +4,16 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.demo.utils.JsonUtil;
 import com.demo.utils.SqlHelper;
 
-import net.sf.json.JSONObject;
-
 public class DeptInfo {
+	
 
-	public JSONObject getStaff(String id,String limit,String pageSize) {
+	public Map<String, Object> getStaff(String id,String limit,String pageSize) {
 		String sql = "select Id,Name,Email,NotesId,Department,Band,JobRole,ExternalTel,MobileTel from staff";
 		String sqlcount = "select count(Id) from staff";
 
@@ -59,13 +58,131 @@ public class DeptInfo {
 			e.printStackTrace();
 		}
 
-        JSONObject jo = new JSONObject();
+        Map<String, Object> resultMap = new HashMap<String, Object>();
         
-        jo.element("dataCount", ((Map)rc.get(0)).values().toArray()[0]);
-        jo.element("data", JsonUtil.mapList2JSON(rl));
+        resultMap.put("dataCount", ((Map)rc.get(0)).values().toArray()[0]);
+        resultMap.put("data", rl);
+
         
-		return jo;
+		return resultMap;
+	}
+
+	
+	public Map<String, Object> setStaff(Staff staff) {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        
+		String id = staff.getId();
+		
+		List<String> arrListId = new ArrayList<String>();
+		if (id ==null || id.trim().equals("")){
+			return resultMap;
+		}else{
+			arrListId.add(id.trim());
+		}
+		
+		String sqlcount = "select count(Id) from staff where id=?";
+		String insertSql = "insert into staff values (?,?,?,?,?,?,?,?,?);";
+		String updateSql = "update staff set"
+				+ " Name=?,Email=?,NotesId=?,Department=?,Band=?,JobRole=?,ExternalTel=?,MobileTel=?"
+				+ " where id=?;";
+
+		List<Map<Object, Object>> countList = new ArrayList<Map<Object, Object>>();
+		try {
+			countList  = SqlHelper.getList(sqlcount,arrListId.toArray(new String[0]));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		int count = Integer.valueOf(String.valueOf(((Map)countList.get(0)).values().toArray()[0]));
+		
+		String invokeSql;
+
+		List<String> arrList = new ArrayList<String>();
+		
+		if (count > 0){
+			invokeSql= updateSql;
+
+			arrList.add(staff.getName());
+			arrList.add(staff.getEmail());
+			arrList.add(staff.getNotesId());
+			arrList.add(staff.getDepartment());
+			arrList.add(staff.getBand());
+			arrList.add(staff.getJobRole());
+			arrList.add(staff.getExternalTel());
+			arrList.add(staff.getMobileTel());
+			arrList.add(staff.getId());
+			
+		}else{
+			invokeSql= insertSql;
+			
+			arrList.add(staff.getId());
+			arrList.add(staff.getName());
+			arrList.add(staff.getEmail());
+			arrList.add(staff.getNotesId());
+			arrList.add(staff.getDepartment());
+			arrList.add(staff.getBand());
+			arrList.add(staff.getJobRole());
+			arrList.add(staff.getExternalTel());
+			arrList.add(staff.getMobileTel());
+		}
+		
+		int rc;
+		String msg = "";
+		
+		rc = SqlHelper.executeUpdate(invokeSql, arrList.toArray(new String[0]));
+        
+
+    	if(invokeSql.equals(updateSql)){
+            if (rc > 0){
+            	msg = "*更新成功!";
+            }else{
+            	msg = "*更新失败!";
+            }
+    	}else if(invokeSql.equals(insertSql)){
+            if (rc > 0){
+            	msg = "*追加成功!";
+            }else{
+            	msg = "*追加失败!";
+            }
+    	}
+        
+        resultMap.put("code", rc);
+        resultMap.put("msg", msg);
+
+		return resultMap;
+		
 	}
 	
+	public Map<String, Object> deleteStaff(String id) {
+		String sql = "delete from staff where id=?;";
+		
+		try {
+			id = URLDecoder.decode(id,"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		int rc;
+		String msg;
+		List<String> arrList = new ArrayList<String>();
+		arrList.add(id);
+		
+		rc = SqlHelper.executeUpdate(sql, arrList.toArray(new String[0]));
+        
+        if (rc > 0){
+        	msg = "*删除成功!";
+        }else{
+        	msg = "*删除失败!";
+        }
+        
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        
+        resultMap.put("code", rc);
+        resultMap.put("msg", msg);
+
+		return resultMap;
+		
+	}
 	
 }

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -140,7 +141,8 @@ public class SqlHelper{
 		Connection con = null;
 		PreparedStatement perstmt = null;
 		int rc = -1;
-		System.out.println("SQL="+sqlString);
+		System.out.println("SQL=" + sqlString);
+		System.out.println("Parameter=" + Arrays.toString(arrs));
 		try {
 			con = SqlHelper.getConnection();
 	        perstmt =  con.prepareStatement(sqlString);

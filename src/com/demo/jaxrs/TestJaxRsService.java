@@ -1,13 +1,9 @@
 package com.demo.jaxrs;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -19,19 +15,9 @@ import javax.ws.rs.core.Response;
 import com.demo.model.DeptInfo;
 import com.demo.model.Staff;
 import com.demo.model.core.DBAccess;
-import com.demo.utils.JsonUtil;
-import com.demo.utils.SqlHelper;
-
-import net.sf.json.JSONObject;
 
 @Path("/")
 public class TestJaxRsService {
-
-	@GET
-	@Path("/ping")
-	public String ping() {
-		return "pong";
-	}
 
 	@GET
 	@Path("/query")
@@ -52,9 +38,9 @@ public class TestJaxRsService {
 	public Response getStaffById(@PathParam("id") String id) {
 		DeptInfo deptInfo = new DeptInfo();
 		
-		JSONObject resultObj = deptInfo.getStaff(id, null, null);
+		Map<String, Object> resultMap = deptInfo.getStaff(id, null, null);
 		
-		return Response.ok(resultObj.toString()).build();
+		return Response.ok(resultMap).build();
 	}
 	
 	@GET
@@ -65,9 +51,9 @@ public class TestJaxRsService {
 			,@PathParam("pageSize") String pageSize) {
 		DeptInfo deptInfo = new DeptInfo();
 		
-		JSONObject resultObj = deptInfo.getStaff(id, limit, pageSize);
+		Map<String, Object> resultMap = deptInfo.getStaff(id, limit, pageSize);
 		
-		return Response.ok(resultObj.toString()).build();
+		return Response.ok(resultMap).build();
 	}
 
 	@PUT
@@ -75,34 +61,23 @@ public class TestJaxRsService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response setStaff(Staff staff) {
-		String sql = "insert into staff values (?,?,?,?,?,?,?,?,?);";
-		int rc;
-		String msg;
-		List<String> arrList = new ArrayList<String>();
-		arrList.add(staff.getId());
-		arrList.add(staff.getName());
-		arrList.add(staff.getEmail());
-		arrList.add(staff.getNotesId());
-		arrList.add(staff.getDepartment());
-		arrList.add(staff.getBand());
-		arrList.add(staff.getJobRole());
-		arrList.add(staff.getExternalTel());
-		arrList.add(staff.getMobileTel());
-		rc = SqlHelper.executeUpdate(sql, arrList.toArray(new String[0]));
-
-        JSONObject jo = new JSONObject();
-        
-        if (rc > 0){
-        	msg = "*更新成功!";
-        }else{
-        	msg = "*更新失败!";
-        }
-
-        jo.element("code", rc);
-        jo.element("msg", msg);
-        
-		return Response.ok(jo.toString()).build();
+		DeptInfo deptInfo = new DeptInfo();
 		
+		Map<String, Object> resultMap = deptInfo.setStaff(staff);
+        
+		return Response.ok(resultMap).build();
+		
+	}
+	
+	@DELETE
+	@Path("/staff/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteStaffById(@PathParam("id") String id) {
+		DeptInfo deptInfo = new DeptInfo();
+		
+		Map<String, Object> resultMap = deptInfo.deleteStaff(id);
+		
+		return Response.ok(resultMap).build();
 	}
 	
 }

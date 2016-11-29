@@ -12,9 +12,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.demo.model.dao.DBAccess;
 import com.demo.model.service.DeptInfoService;
 import com.demo.model.vo.Staff;
+import com.demo.servlet.DBAccess;
 
 @Path("/")
 public class DeptInfoController {

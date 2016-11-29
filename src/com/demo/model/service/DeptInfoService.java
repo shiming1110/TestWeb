@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.demo.model.dao.SqlHelper;
 import com.demo.model.vo.Staff;
+import com.demo.utils.SqlHelper;
 
 public class DeptInfoService {
 	

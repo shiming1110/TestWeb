@@ -18,7 +18,7 @@ public class TestJaxRsApplication extends Application{
 
           Set<Class<?>> classes = new HashSet<Class<?>>();  
 
-          classes.add(TestJaxRsService.class);  
+          classes.add(DeptInfoController.class);  
           
           return classes;  
 

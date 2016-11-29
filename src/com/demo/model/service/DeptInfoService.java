@@ -11,7 +11,7 @@ import java.util.Map;
 import com.demo.model.dao.SqlHelper;
 import com.demo.model.vo.Staff;
 
-public class DeptInfo {
+public class DeptInfoService {
 	
 
 	public Map<String, Object> getStaff(String id,String limit,String pageSize) {

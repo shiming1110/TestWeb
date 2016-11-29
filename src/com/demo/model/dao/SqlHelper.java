@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.demo.utils.PropsUtils;
+
 
 
 public class SqlHelper{
@@ -29,13 +31,13 @@ public class SqlHelper{
 	
 	public static Connection getConnection(){
 		
-		String url = "jdbc:mysql://9.197.37.44:3306/jri?serverTimezone=UTC&useSSL=true" ;     
-	    String username = "root" ;
-	    String password = "password" ;
+//		String url = "jdbc:mysql://9.197.37.44:3306/jri?serverTimezone=UTC&useSSL=true" ;     
+//	    String username = "root" ;
+//	    String password = "password" ;
 	    
-//		String url = PropsUtils.getDBProperty("jdbc_url");
-//	    String username = PropsUtils.getDBProperty("jdbc_username");
-//	    String password = PropsUtils.getDBProperty("jdbc_password");
+		String url = PropsUtils.getDBProperty("jdbc_url");
+	    String username = PropsUtils.getDBProperty("jdbc_username");
+	    String password = PropsUtils.getDBProperty("jdbc_password");
 	    
 	    Connection conn = null;
 	    

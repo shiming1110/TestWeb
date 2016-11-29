@@ -13,11 +13,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.demo.model.dao.DBAccess;
-import com.demo.model.service.DeptInfo;
+import com.demo.model.service.DeptInfoService;
 import com.demo.model.vo.Staff;
 
 @Path("/")
-public class TestJaxRsService {
+public class DeptInfoController {
 
 	@GET
 	@Path("/query")
@@ -36,7 +36,7 @@ public class TestJaxRsService {
 	@Path("/staff/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getStaffById(@PathParam("id") String id) {
-		DeptInfo deptInfo = new DeptInfo();
+		DeptInfoService deptInfo = new DeptInfoService();
 		
 		Map<String, Object> resultMap = deptInfo.getStaff(id, null, null);
 		
@@ -49,7 +49,7 @@ public class TestJaxRsService {
 	public Response getStaffByIdWithPage(@PathParam("id") String id
 			,@PathParam("limit") String limit
 			,@PathParam("pageSize") String pageSize) {
-		DeptInfo deptInfo = new DeptInfo();
+		DeptInfoService deptInfo = new DeptInfoService();
 		
 		Map<String, Object> resultMap = deptInfo.getStaff(id, limit, pageSize);
 		
@@ -61,7 +61,7 @@ public class TestJaxRsService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response setStaff(Staff staff) {
-		DeptInfo deptInfo = new DeptInfo();
+		DeptInfoService deptInfo = new DeptInfoService();
 		
 		Map<String, Object> resultMap = deptInfo.setStaff(staff);
         
@@ -73,7 +73,7 @@ public class TestJaxRsService {
 	@Path("/staff/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteStaffById(@PathParam("id") String id) {
-		DeptInfo deptInfo = new DeptInfo();
+		DeptInfoService deptInfo = new DeptInfoService();
 		
 		Map<String, Object> resultMap = deptInfo.deleteStaff(id);
 		

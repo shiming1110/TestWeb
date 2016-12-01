@@ -20,7 +20,7 @@ public class SqlHelper{
 	
 	static{
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -29,9 +29,9 @@ public class SqlHelper{
 	
 	public static Connection getConnection(){
 		
-//		String url = "jdbc:mysql://9.197.37.44:3306/jri?serverTimezone=UTC&useSSL=true" ;     
-//	    String username = "root" ;
-//	    String password = "password" ;
+//		String url = "jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/ad_cdf28c3f7e35dd9?serverTimezone=UTC&useSSL=false" ;     
+//	    String username = "bd1c096dae5789" ;
+//	    String password = "ba3ef841" ;
 	    
 		String url = PropsUtils.getDBProperty("jdbc_url");
 	    String username = PropsUtils.getDBProperty("jdbc_username");

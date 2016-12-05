@@ -18,6 +18,12 @@ import com.demo.servlet.DBAccess;
 
 @Path("/")
 public class DeptInfoController {
+	
+	@GET
+	@Path("/ping")
+	public String ping() {
+		return "pong";
+	}
 
 	@GET
 	@Path("/query")

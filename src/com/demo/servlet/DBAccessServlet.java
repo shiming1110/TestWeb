@@ -23,7 +23,7 @@ public class DBAccessServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	// JDBC 驱动名及数据库 URL
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	static final String DB_URL = "jdbc:mysql://localhost:3306/sinastock?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull";
+	static final String DB_URL = "jdbc:mysql://localhost:3306/sinastock?serverTimezone=UTC&useSSL=true";
 	
 	// 数据库的用户名与密码，需要根据自己的设置
 	static final String USER = "root";
